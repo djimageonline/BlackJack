@@ -1,11 +1,17 @@
 let firstCard = 10;
 let secondCard = 7;
-let sum = firstCard + secondCard + 4;
+let sum = firstCard + secondCard;
 let hasBlackJack = false;
 let isAlive = true;
 let message = "";
+let messageEl = document.getElementById("message-el");
+let sumEl = document.getElementById("sum-el");
+let cardsEl = document.getElementById("cards-el");
 
 function startGame() {
+  cardsEl.textContent = `Cards: ${firstCard} ${secondCard}`;
+  sumEl.textContent = "Sum:" + sum;
+
   if (sum <= 20) {
     message = "Do you want to hit?";
   } else if (sum === 21) {
@@ -15,5 +21,6 @@ function startGame() {
     message = "Ouch, Maybe next time.  You Lost!";
     let isAlive = false;
   }
-  console.log(message);
+  // messageEl.textContent = "Hi";
+  messageEl.textContent = message;
 }
