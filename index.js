@@ -7,8 +7,13 @@ let message = "";
 let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
+// let newCardToPlay = "";
 
 function startGame() {
+  renderGame();
+}
+
+function renderGame() {
   cardsEl.textContent = `Cards: ${firstCard} ${secondCard}`;
   sumEl.textContent = "Sum:" + sum;
 
@@ -23,4 +28,10 @@ function startGame() {
   }
   // messageEl.textContent = "Hi";
   messageEl.textContent = message;
+}
+
+function newCard() {
+  let newerCard = 5;
+  sum += newerCard;
+  renderGame();
 }
