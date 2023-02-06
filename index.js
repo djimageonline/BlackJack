@@ -1,9 +1,7 @@
-let firstCard = getRandomCard();
-let secondCard = getRandomCard();
-let cards = [firstCard, secondCard];
-let sum = firstCard + secondCard;
+let cards = [];
+let sum = 0;
 let hasBlackJack = false;
-let isAlive = true;
+let isAlive = false;
 let message = "";
 let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
@@ -42,6 +40,11 @@ function getRandomCard() {
 }
 
 function startGame() {
+  isAlive = true;
+  let firstCard = getRandomCard();
+  let secondCard = getRandomCard();
+  cards = [firstCard, secondCard];
+  sum = firstCard + secondCard;
   renderGame();
 }
 
@@ -60,16 +63,17 @@ function renderGame() {
     hasBlackJack = true;
   } else {
     message = "Ouch, Maybe next time.  You Lost!";
-    let isAlive = false;
+    isAlive = false;
   }
   // messageEl.textContent = "Hi";
   messageEl.textContent = message;
 }
 
 function newCard() {
-  let newerCard = getRandomCard();
-  sum += newerCard;
-  cards.push(newerCard);
-  console.log(newerCard);
-  renderGame();
+  if (isAlive === true && hasBlackJack === false) {
+    let newerCard = getRandomCard();
+    sum += newerCard;
+    cards.push(newerCard);
+    renderGame();
+  }
 }
