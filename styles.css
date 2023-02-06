@@ -1,19 +1,36 @@
 body {
   background-color: bisque;
-  background-image: url("img/table-green.jpg");
+  background-image: url("img/brown-wood.jpg");
   background-size: cover;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   text-align: center;
   color: white;
   font-weight: bolder;
+  font-size: larger;
 }
 
 #bj-container {
+  
   margin-top: 150px;
+  margin-left: 20px;
+  margin-right: 20px;
+  background-image: url("img/table-green.jpg");
+  height: 500px;
+  border: 20px solid rgb(37, 24, 24);
+  border-radius: 20px;
+}
+
+.content-container {
+  height: 400px;
+  margin-top: 100px;
+  display: block;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
   color: rgb(248, 248, 53);
+  margin-top: 50px;
 }
 
 #message-el {
@@ -25,9 +42,14 @@ h1 {
   color: black;
   background-color: rgb(248, 248, 53) ;
   padding: 5px;
-  border-radius: 3px;
+  border-radius: 20px;
 }
 
 button {
   margin: 2px 0;
+}
+
+button:hover {
+  background-color: brown;
+  color: rgb(248, 248, 53);
 }

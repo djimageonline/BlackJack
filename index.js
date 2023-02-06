@@ -66,7 +66,7 @@ function renderGame() {
   if (sum <= 20) {
     message = "Do you want to hit?";
   } else if (sum === 21) {
-    message = "BlackJack! You won!";
+    message = "---->    BlackJack! You won!    <------";
     hasBlackJack = true;
   } else {
     message = "Ouch, Maybe next time.  You Lost!";
@@ -101,8 +101,13 @@ function endGame() {
     }
     messageEl.textContent = message + " Start the game again!";
   }
+  resetGame();
 }
 
-// function resetGame() {
-
-// }
+function resetGame() {
+  cards = [];
+  sum = 0;
+  hasBlackJack = false;
+  isAlive = false;
+  message = "";
+}
