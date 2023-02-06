@@ -11,7 +11,34 @@ let cardsEl = document.getElementById("cards-el");
 // let newCardToPlay = "";
 
 function getRandomCard() {
-  return Math.floor(Math.random() * 10) + 1;
+  let randomCardNumber = Math.floor(Math.random() * 13) + 1;
+
+  //Need to fix last else for last choice to pick
+  if (randomCardNumber === 1) {
+    let userpick = Number(prompt("ACE! Use it as 1 or 11?"));
+    if (userpick === 1) {
+      randomCardNumber = userpick;
+      return randomCardNumber;
+    } else if (userpick === 11) {
+      randomCardNumber = userpick;
+      return randomCardNumber;
+    } else {
+      userpick = Number(prompt("Choose 1 or 11!!! Or else I will choose for you"));
+      if (userpick !== 1 || userpick !== 11) {
+        userpick = 11;
+        randomCardNumber = userpick;
+      } else {
+        randomCardNumber = userpick;
+        return randomCardNumber;
+      }
+      return (randomCardNumber = userpick);
+    }
+    // return 11;
+  } else if (randomCardNumber === 11 || randomCardNumber === 12 || randomCardNumber === 13) {
+    return 10;
+  } else {
+    return randomCardNumber;
+  }
 }
 
 function startGame() {
