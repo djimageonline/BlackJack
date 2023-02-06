@@ -1,3 +1,7 @@
+let player = {
+  name: "Jake",
+  chips: 150,
+};
 let cards = [];
 let sum = 0;
 let hasBlackJack = false;
@@ -6,7 +10,10 @@ let message = "";
 let messageEl = document.getElementById("message-el");
 let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
-// let newCardToPlay = "";
+let playerEl = document.getElementById("player-el");
+
+console.log(player);
+playerEl.textContent = `${player.name}: $${player.chips}`;
 
 function getRandomCard() {
   let randomCardNumber = Math.floor(Math.random() * 13) + 1;
@@ -77,3 +84,25 @@ function newCard() {
     renderGame();
   }
 }
+
+function endGame() {
+  console.log("Testing");
+  console.log(sum);
+
+  if (isAlive === true && hasBlackJack === false) {
+    if (sum <= 21) {
+      message = "Awesome! You Won!";
+    } else if (sum === 21) {
+      message = "BlackJack! You won!";
+      hasBlackJack = true;
+    } else {
+      message = "Ouch, Maybe next time.  You Lost!";
+      isAlive = false;
+    }
+    messageEl.textContent = message + " Start the game again!";
+  }
+}
+
+// function resetGame() {
+
+// }
