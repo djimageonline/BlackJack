@@ -86,7 +86,17 @@ function startGame() {
   let dealerSecondCard = dealerRandomCard();
   dealerCards = [dealerFirstCard, dealerSecondCard];
   dealerSum = dealerFirstCard + dealerSecondCard;
-  dealerRenderGame();
+  dealerCardsEl.textContent = "Dealer Cards: ";
+
+  for (let c = 0; c < dealerCards.length; c++) {
+    dealerCardsEl.textContent += dealerCards[c] + " | ";
+  }
+  dealerSumEl.textContent = "Dealer Sum:" + dealerSum;
+
+  if (dealerSum === 21) {
+    messageEl.textContent = "Dealer: You Lost, Dealer got BlackJack, Start Game again";
+    resetGame();
+  }
 
   //Player
   isAlive = true;
@@ -102,6 +112,18 @@ function dealerRenderGame() {
   for (let c = 0; c < dealerCards.length; c++) {
     dealerCardsEl.textContent += dealerCards[c] + " | ";
   }
+
+  if (dealerSum <= 20) {
+    dealerNewCard();
+    message = "Dealer hits";
+  } else if (dealerSum === 21) {
+    message = "---->    BlackJack! Dealer won and you LOST!    <------";
+    dealerHasBlackJack = true;
+  } else {
+    message = "Dealer:  I Lost! Nooooo";
+    dealerIsAlive = false;
+  }
+  messageEl.textContent = message;
   dealerSumEl.textContent = "Dealer Sum:" + dealerSum;
 }
 
@@ -135,9 +157,19 @@ function newCard() {
   }
 }
 
+function dealerNewCard() {
+  if (dealerIsAlive === true && hasBlackJack === false) {
+    if (dealerSum < sum) {
+      let newerDealerCard = dealerRandomCard();
+      dealerSum += newerDealerCard;
+      dealerCards.push(newerDealerCard);
+    }
+  }
+  dealerRenderGame();
+}
+
 function endGame() {
-  console.log("Testing");
-  console.log(sum);
+  dealerNewCard();
 
   if (isAlive === true && hasBlackJack === false) {
     if (sum <= 21) {
