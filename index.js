@@ -129,11 +129,13 @@ function renderGame() {
     player.chips += 20;
     playerEl.textContent = `${player.name}: $${player.chips}`;
     hasBlackJack = true;
+    resetGame();
   } else {
     message = "Ouch, Maybe next time.  You Lost!";
     player.chips -= 10;
     playerEl.textContent = `${player.name}: $${player.chips}`;
     isAlive = false;
+    resetGame();
   }
   // messageEl.textContent = "Hi";
   messageEl.textContent = message;
@@ -193,5 +195,4 @@ function resetGame() {
   isAlive = false;
   dealerIsAlive = false;
   dealerHasBlackJack = false;
-  message = "";
 }
