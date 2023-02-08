@@ -1,6 +1,6 @@
 let player = {
-  name: "Jake",
-  chips: 150,
+  name: "",
+  chips: 100,
 };
 
 let dealer = {
@@ -27,7 +27,7 @@ let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 let playerEl = document.getElementById("player-el");
 
-console.log(player);
+player.name = prompt("Enter your name: ");
 playerEl.textContent = `${player.name}: $${player.chips}`;
 
 function getRandomCard() {
@@ -92,7 +92,17 @@ function startGame() {
     cards = [firstCard, secondCard];
     sum = firstCard + secondCard;
     messageEl.textContent = "You Lost, Dealer got BlackJack. Start Again?";
+    player.chips -= 20;
+    playerEl.textContent = `${player.name}: $${player.chips}`;
     resetGame();
+  } else if (dealerSum > 21) {
+    let firstCard = getRandomCard();
+    let secondCard = getRandomCard();
+    cards = [firstCard, secondCard];
+    sum = firstCard + secondCard;
+    messageEl.textContent = "You Won, Dealer got a BUST. Start Again?";
+    player.chips += 20;
+    playerEl.textContent = `${player.name}: $${player.chips}`;
   } else {
     //Player
     isAlive = true;
@@ -116,11 +126,14 @@ function renderGame() {
     message = "Do you want to hit?";
   } else if (sum === 21) {
     message = "---->    BlackJack! You won!    <------";
+    player.chips += 20;
+    playerEl.textContent = `${player.name}: $${player.chips}`;
     hasBlackJack = true;
   } else {
     message = "Ouch, Maybe next time.  You Lost!";
+    player.chips -= 90;
+    playerEl.textContent = `${player.name}: $${player.chips}`;
     isAlive = false;
-    dealerIsAlive = false;
   }
   // messageEl.textContent = "Hi";
   messageEl.textContent = message;
@@ -141,7 +154,6 @@ function dealerNewCard() {
       let newerDealerCard = dealerRandomCard();
       dealerSum += newerDealerCard;
       dealerCards.push(newerDealerCard);
-      console.log("dealing cards");
     }
     endGame();
   }
@@ -149,7 +161,6 @@ function dealerNewCard() {
 
 function endGame() {
   if (isAlive === true && hasBlackJack === false) {
-    console.log("this part works 1");
     dealerCardsEl.textContent = "Dealer Cards: ";
     for (let c = 0; c < dealerCards.length; c++) {
       dealerCardsEl.textContent += dealerCards[c] + " | ";
@@ -158,20 +169,24 @@ function endGame() {
 
     if (dealerSum < sum && isAlive === true) {
       dealerNewCard();
-      console.log("this part works 2");
-    }
-    console.log("After dealer card again");
-
-    if (dealerSum >= sum && dealerSum <= 21) {
-      messageEl.textContent = "Dealer Wins";
     } else {
-      messageEl.textContent = "You Win Congratulations!";
+      if (dealerSum >= sum && dealerSum <= 21) {
+        messageEl.textContent = "Dealer Wins";
+        player.chips -= 70;
+        playerEl.textContent = `${player.name}: $${player.chips}`;
+      } else {
+        messageEl.textContent = "You Win Congratulations!";
+        player.chips += 10;
+        playerEl.textContent = `${player.name}: $${player.chips}`;
+      }
+      resetGame();
     }
-    resetGame();
   }
 }
 
 function resetGame() {
+  dealerCards = [];
+  dealerSum = 0;
   cards = [];
   sum = 0;
   hasBlackJack = false;
