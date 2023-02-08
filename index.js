@@ -131,7 +131,7 @@ function renderGame() {
     hasBlackJack = true;
   } else {
     message = "Ouch, Maybe next time.  You Lost!";
-    player.chips -= 90;
+    player.chips -= 10;
     playerEl.textContent = `${player.name}: $${player.chips}`;
     isAlive = false;
   }
@@ -172,7 +172,7 @@ function endGame() {
     } else {
       if (dealerSum >= sum && dealerSum <= 21) {
         messageEl.textContent = "Dealer Wins";
-        player.chips -= 70;
+        player.chips -= 10;
         playerEl.textContent = `${player.name}: $${player.chips}`;
       } else {
         messageEl.textContent = "You Win Congratulations!";
