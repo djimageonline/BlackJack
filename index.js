@@ -2,6 +2,26 @@ let player = {
   name: "Jake",
   chips: 150,
 };
+
+let dealer = {
+  name: "Jack the Dealer",
+  years: 42,
+};
+
+// Dealer needs to show his/her card
+// Dealer goes first but cannot go again until after player gets black jack or decides to stay
+// Dealer can then go until black jack or until he stays
+// At the end of game if player is Alive and player sum is greater than dealer card but not more than 21, player wins, otherwise Dealer wins
+
+// Dealer
+let dealerCards = [];
+let dealerSum = 0;
+let dealerHasBlackJack = false;
+let dealerIsAlive = false;
+let dealerCardsEl = document.getElementById("dealer-cards-el");
+let dealerSumEl = document.getElementById("dealer-sum-el");
+
+// Player
 let cards = [];
 let sum = 0;
 let hasBlackJack = false;
@@ -28,7 +48,7 @@ function getRandomCard() {
       randomCardNumber = userpick;
       return randomCardNumber;
     } else {
-      userpick = Number(prompt("Choose 1 or 11!!! Or else I will choose for you"));
+      userpick = Number(prompt("Dealer: Choose 1 or 11!!! Or else I will choose for you"));
       if (userpick !== 1 || userpick !== 11) {
         userpick = 11;
         randomCardNumber = userpick;
@@ -46,7 +66,29 @@ function getRandomCard() {
   }
 }
 
+function dealerRandomCard() {
+  let randomDealerCardNumber = Math.floor(Math.random() * 13) + 1;
+  if (randomDealerCardNumber === 1) {
+    randomDealerCardNumber = 11;
+    return randomDealerCardNumber;
+  } else if (randomDealerCardNumber === 11 || randomDealerCardNumber === 12 || randomDealerCardNumber === 13) {
+    randomDealerCardNumber = 10;
+    return randomDealerCardNumber;
+  } else {
+    return randomDealerCardNumber;
+  }
+}
+
 function startGame() {
+  //Dealer
+  dealerIsAlive = true;
+  let dealerFirstCard = dealerRandomCard();
+  let dealerSecondCard = dealerRandomCard();
+  dealerCards = [dealerFirstCard, dealerSecondCard];
+  dealerSum = dealerFirstCard + dealerSecondCard;
+  dealerRenderGame();
+
+  //Player
   isAlive = true;
   let firstCard = getRandomCard();
   let secondCard = getRandomCard();
@@ -55,21 +97,29 @@ function startGame() {
   renderGame();
 }
 
+function dealerRenderGame() {
+  dealerCardsEl.textContent = "Dealer Cards: ";
+  for (let c = 0; c < dealerCards.length; c++) {
+    dealerCardsEl.textContent += dealerCards[c] + " | ";
+  }
+  dealerSumEl.textContent = "Dealer Sum:" + dealerSum;
+}
+
 function renderGame() {
   cardsEl.textContent = "Cards: ";
   for (let c = 0; c < cards.length; c++) {
-    cardsEl.textContent += cards[c] + " ";
+    cardsEl.textContent += cards[c] + " | ";
   }
 
   sumEl.textContent = "Sum:" + sum;
 
   if (sum <= 20) {
-    message = "Do you want to hit?";
+    message = "Dealer: Do you want to hit?";
   } else if (sum === 21) {
     message = "---->    BlackJack! You won!    <------";
     hasBlackJack = true;
   } else {
-    message = "Ouch, Maybe next time.  You Lost!";
+    message = "Dealer: Ouch, Maybe next time.  You Lost!";
     isAlive = false;
   }
   // messageEl.textContent = "Hi";
